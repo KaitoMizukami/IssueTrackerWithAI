@@ -11,12 +11,12 @@ class CustomUserAdmin(UserAdmin):
 
     list_display = ('email', 'username', 'is_staff')
     fieldsets = (
-        ('ユーザー情報', {
+        ('user informations', {
             'fields': (
                 'username', 'email', 'password'
             )
         }),
-        ('パーミッション', {
+        ('permissions', {
             'fields': (
                 'is_active', 'is_staff', 'is_superuser'
             )
@@ -24,7 +24,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
     add_fieldsets = (
-        ('ユーザー情報', {
+        ('user information', {
             'fields': (
                 'username','email', 'password', 'confirm_password'
             )
