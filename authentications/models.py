@@ -29,9 +29,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """
-    User model schema
-    """
     email = models.EmailField(
         max_length=250, unique=True,
         verbose_name='email address'
