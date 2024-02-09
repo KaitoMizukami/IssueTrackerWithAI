@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">All Issues</h1>
+        <div class="columns is-multiline">
+            {% for issue in issues %}
+            <div class="column is-half">
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>{{ issue.title }}</strong>
+                                    <br>
+                                    {{ issue.description }}
+                                    <br>
+                                <pre>{{ issue.code }}</pre>
+                                <br>
+                                <em>ChatGPT Response:</em>
+                                <blockquote>
+                                    <pre>{{ issue.chatGPT_response }}</pre>
+                                </blockquote>
+                                <small>{{ issue.created_at }}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
