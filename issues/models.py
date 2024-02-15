@@ -7,6 +7,8 @@ class Issue(models.Model):
     description = models.TextField()
     chatGPT_response = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    team = models.ForeignKey('teams.Team', on_delete=models.CASCADE)
+    author = models.ForeignKey('authentications.User', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
