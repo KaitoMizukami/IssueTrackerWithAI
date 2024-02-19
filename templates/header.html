@@ -1,6 +1,6 @@
-<nav class="navbar is-link mb-6">
+<nav class="navbar is-link mb-6 p-3">
     <div class="navbar-brand">
-        <a class="navbar-item" href="{% url 'issues:list' %}">
+        <a class="navbar-item" href="{% url 'teams:list' %}">
             Issue Tracking System
         </a>
     </div>
@@ -11,6 +11,9 @@
             </a>
             <a class="navbar-item" href="{% url 'teams:enter' %}">
                 Enter Team
+            </a>
+            <a class="navbar-item" href="{% url 'teams:list' %}">
+                My Teams
             </a>
         </div>
 

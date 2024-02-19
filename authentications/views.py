@@ -15,7 +15,7 @@ class UserLoginView(FormView):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('issues:list')
+            return redirect('teams:list')
         return redirect('authentications:login')
     
 
@@ -29,7 +29,7 @@ class UserSignupView(FormView):
             user_form.save()
             user = authenticate(email=user_form.cleaned_data['email'], password=user_form.cleaned_data['password'])
             login(request, user)
-            return redirect('issues:list')
+            return redirect('teams:list')
         else:
             return render(request, self.template_name, {'form': user_form})
         

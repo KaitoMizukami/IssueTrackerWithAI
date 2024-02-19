@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="columns is-centered">
+    <div class="column is-half">
+        <h1 class="is-size-1">{{ team.name }}</h1>
+        <div class="buttons">
+            <a class="button is-success" href="{% url 'teams:create-issues' pk=team.id %}">New Issue</a>
+        </div>
+        <hr>
+        {% for issue in issues %}
+        <h2 class="is-size-3 mb-4">{{ issue.title }}</h2>
+        <p class="mb-4">{{ issue.description }}</p>
+        <pre>{{ issue.code|linebreaks }}</pre>
+        <h5 class="is-size-5 mt-5 mb-3">ChatGPT suggestion</h5>
+        <pre>{{ issue.code|linebreaks }}</pre>
+        <hr>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

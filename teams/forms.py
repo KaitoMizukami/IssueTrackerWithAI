@@ -25,3 +25,23 @@ class TeamEnterForm(forms.Form):
             'class': 'input mb-4'
         }
     ))
+
+
+class IssueCreateForm(forms.Form):
+    title = forms.CharField(label='Title', widget=forms.TextInput(
+        attrs={
+            'class': 'input mb-4'
+        }
+    ))
+
+    code = forms.CharField(label='Code', widget=forms.Textarea(
+        attrs={
+            'class': 'input mb-4'
+        }
+    ))
+
+    description = forms.CharField(label='description', widget=forms.Textarea(
+        attrs={
+            'class': 'input mb-4'
+        }
+    ))

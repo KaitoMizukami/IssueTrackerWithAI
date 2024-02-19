@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="columns is-centered">
+    <div class="column is-half has-background-link-light">
+        <h1 class="is-size-1">New issue</h1>
+        <hr>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button class="button is-primary mt-2">Create</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
