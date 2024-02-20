@@ -1,2 +1,4 @@
 Django==4.1
 requests==2.28.0 # To call ChatGPT API
+openai
+django-environ==0.4.5 # To load environment variables

@@ -14,7 +14,7 @@
         <p class="mb-4">{{ issue.description }}</p>
         <pre>{{ issue.code|linebreaks }}</pre>
         <h5 class="is-size-5 mt-5 mb-3">ChatGPT suggestion</h5>
-        <pre>{{ issue.code|linebreaks }}</pre>
+        <pre>{{ issue.chatGPT_response|linebreaks }}</pre>
         <hr>
         {% endfor %}
     </div>

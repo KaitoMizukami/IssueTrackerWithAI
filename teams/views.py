@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView, ListView
+import openai
+import os
+import environ
+from pathlib import Path
 
 from .models import Team, Issue
 from .forms import TeamCreationForm, IssueCreateForm
@@ -55,9 +59,16 @@ class TeamIssueListView(ListView):
     def get(self, request, pk):
         team = Team.objects.get(pk=pk)
         issues = team.issues.all()
-        print(issues)
         return render(request, self.template_name, {'issues': issues, 'team': team})
+    
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
+openai.api_key = env('OPENAI_API')
+
+client = openai.Client(api_key=env('OPENAI_API'))
 
 class TeamIssueCreateView(CreateView):
     form_class = IssueCreateForm
@@ -69,8 +80,21 @@ class TeamIssueCreateView(CreateView):
 
     def post(self, request, pk):
         team = Team.objects.get(pk=pk)
-        issue = Issue(title=request.POST['title'], code=request.POST['code'], description=request.POST['description'], author=request.user)
-        issue.chatGPT_response = 'No suggestion yet'
+        issue = Issue(
+            title=request.POST['title'],
+            code=request.POST['code'], 
+            description=request.POST['description'], 
+            author=request.user
+        )
+        content = f"Title: {issue.title}\nCode: {issue.code}\nDescription: {issue.description}"
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful engineer assistant."},
+                {"role": "user", "content": content},
+            ]
+        )
+        issue.chatGPT_response = response.choices[0].message.content
         issue.save()
         team.issues.add(issue)
         team.save()

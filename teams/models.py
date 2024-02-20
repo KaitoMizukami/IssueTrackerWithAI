@@ -20,6 +20,3 @@ class Issue(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     team = models.ManyToManyField(Team, related_name='issues')
     author = models.ForeignKey('authentications.User', on_delete=models.CASCADE, related_name='issues')
-
-    def __str__(self):
-        return self.title
