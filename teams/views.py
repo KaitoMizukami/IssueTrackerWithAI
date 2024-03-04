@@ -47,9 +47,9 @@ class TeamListView(ListView):
     template_name = 'teams/list.html'
 
     def get(self, request):
-        user = request.user
-        teams = Team.objects.filter(users=user)
-        return render(request, self.template_name, {'teams': teams})
+        u = request.user
+        t = Team.objects.filter(users=u)
+        return render(request, self.template_name, {'teams': t})
 
 
 class TeamIssueListView(ListView):
@@ -86,7 +86,7 @@ class TeamIssueCreateView(CreateView):
             description=request.POST['description'], 
             author=request.user
         )
-        content = f"Title: {issue.title}\nCode: {issue.code}\nDescription: {issue.description}"
+        content = f"Title: {issue.title}\nCode: {issue.code}\nDescription: {issue.description}\n"
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -94,7 +94,13 @@ class TeamIssueCreateView(CreateView):
                 {"role": "user", "content": content},
             ]
         )
-        issue.chatGPT_response = response.choices[0].message.content
+        if "```" in response.choices[0].message.content:
+            divied_code = response.choices[0].message.content.split('```')
+            print(divied_code)
+            issue.chatGPT_response = divied_code[0]
+            issue.chatGPT_code = divied_code[1]
+        else:
+            issue.chatGPT_response = response.choices[0].message.content
         issue.save()
         team.issues.add(issue)
         team.save()

@@ -40,7 +40,7 @@ class IssueCreateForm(forms.Form):
         }
     ))
 
-    description = forms.CharField(label='description', widget=forms.Textarea(
+    description = forms.CharField(label='Note', required=False, widget=forms.Textarea(
         attrs={
             'class': 'input mb-4'
         }
