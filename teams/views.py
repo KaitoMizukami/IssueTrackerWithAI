@@ -96,7 +96,6 @@ class TeamIssueCreateView(CreateView):
         )
         if "```" in response.choices[0].message.content:
             divied_code = response.choices[0].message.content.split('```')
-            print(divied_code)
             issue.chatGPT_response = divied_code[0]
             issue.chatGPT_code = divied_code[1]
         else:
